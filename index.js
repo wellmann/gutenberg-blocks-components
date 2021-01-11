@@ -2,7 +2,6 @@ export { default as DateTimePickerControl } from './components/Control/DateTimeP
 export { default as EntitySelectControl } from './components/Control/EntitySelectControl';
 export { default as ImageControl } from './components/Control/ImageControl';
 export { default as MediaControl } from './components/Control/MediaControl';
-export { default as RepeaterControl } from './components/Control/RepeaterControl';
 export { default as URLControl } from './components/Control/URLControl';
 export { default as getEdit } from './components/Wrapper/EditWrapper';
 export { default as InspectorControls } from './components/Wrapper/InspectorControlsWrapper';
