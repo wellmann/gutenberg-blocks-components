@@ -15,9 +15,9 @@ const EntitySearchList = ({ entity, name, items }) => {
 
   if (items) {
     switch (entity) {
-      case 'postType':
-        items.forEach((item) => options.push({ id: item.id, name: item.title.rendered }));
-        break;
+    case 'postType':
+      items.forEach((item) => options.push({ id: item.id, name: item.title.rendered }));
+      break;
     }
   }
 
@@ -40,4 +40,4 @@ const EntitySearchList = ({ entity, name, items }) => {
   );
 };
 
-export default withSelect((select, { entity, type }) => ({ items: select('core').getEntityRecords(entity, type) }))(EntitySearchList);
+export default withSelect((select, { entity, type, args = {} }) => ({ items: select('core').getEntityRecords(entity, type, args) }))(EntitySearchList);

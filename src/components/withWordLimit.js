@@ -14,9 +14,9 @@ const { count } = wp.wordcount;
 const withWordLimit = ({ limit, threshold }) => createHigherOrderComponent((WrappedComponent) => {
 
   class ComponentWithWordLimit extends Component {
-    static defaultProps = { onChange: () => null }
+    //static defaultProps = { onChange: () => null }
 
-    onChange = (eventOrvalue) => {
+    onChange(eventOrvalue) {
       console.log('onChange');
       threshold = typeof threshold === 'undefined' ? 2 : threshold;
       const text = typeof eventOrvalue === Object ? event.target.value : eventOrvalue;

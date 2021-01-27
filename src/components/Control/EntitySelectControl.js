@@ -11,12 +11,12 @@ const EntitySelectControl = ({ entity, items = [], placeholder = '', ...restProp
 
   if (items) {
     switch (entity) {
-      case 'postType':
-        items.forEach((item) => options.push({ value: item.id, label: item.title.rendered }));
-        break;
-      case 'taxonomy':
-        items.forEach((item) => options.push({ value: item.id, label: item.name }));
-        break;
+    case 'postType':
+      items.forEach((item) => options.push({ value: item.id, label: item.title.rendered }));
+      break;
+    case 'taxonomy':
+      items.forEach((item) => options.push({ value: item.id, label: item.name }));
+      break;
     }
   }
 
@@ -27,4 +27,4 @@ const EntitySelectControl = ({ entity, items = [], placeholder = '', ...restProp
   return <SelectControl { ...restProps } options={ options } disabled={ !items } />;
 };
 
-export default withSelect((select, { entity, type }) => ({ items: select('core').getEntityRecords(entity, type) }))(EntitySelectControl);
+export default withSelect((select, { entity, type, args = {} }) => ({ items: select('core').getEntityRecords(entity, type, args) }))(EntitySelectControl);

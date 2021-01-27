@@ -1,6 +1,6 @@
 # Gutenberg Blocks Components
 
-NPM package to facilitate the development of Gutenberg blocks.
+Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framework.
 
 ## Features
 

@@ -31,7 +31,7 @@ const ImageControl = ({ label, name, ...restProps }) => {
           <div className="editor-post-featured-image__container">
             { value ?
             <>
-              <ImagePreview imageId={ value } open={ open }  />
+              <ImagePreview imageId={ value } open={ open } />
               <Button onClick={ restProps.onRemove || onRemove } isLink isDestructive>{ __('Remove') }</Button>
             </> : ''
             }

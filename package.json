@@ -1,10 +1,19 @@
 {
   "name": "@kwio/gutenberg-blocks-components",
   "version": "1.0.0",
-  "description": "Foundation to develop custom blocks for Gutenberg.",
+  "description": "Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framework.",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepare": "babel --config-file ./configs/babel.config.js src/ --out-dir dist"
+  },
   "author": {
     "name": "Kevin Wellmann",
     "url": "http://kevin.wellmann.io"
+  },
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wellmann/gutenberg-blocks-components.git"
   },
   "husky": {
     "hooks": {
@@ -29,7 +38,16 @@
     "suppress-exit-code": "^0.1.0"
   },
   "dependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
     "@woocommerce/components": "^5.1.2",
+    "@wordpress/base-styles": "^3.2.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-inline-replace-variables": "^1.3.1",
     "react-bem-helper": "^1.4.1"
   }
 }
