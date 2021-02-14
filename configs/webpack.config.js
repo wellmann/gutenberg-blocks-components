@@ -20,9 +20,7 @@ module.exports = {
       dirname(__dirname) + '/dist/hooks.js',
       ...glob.sync(cwd + '/src/**/editor.scss')
     ],
-    'critical:' [
-      ...glob.sync(cwd + '/src/**/style.critical.scss')
-    ],
+    'critical': glob.sync(cwd + '/src/**/style.critical.scss'),
     'blocks': [
       ...glob.sync(cwd + '/src/**/style.scss'),
       ...glob.sync(cwd + '/src/**/script.js')
@@ -45,7 +43,11 @@ module.exports = {
     rules: [
       {
         test: /\.(js)$/,
-        use: { loader: 'babel-loader' }
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: require(dirname(__dirname) + '/configs/babel.config.js')
+        }
       },
       {
         test: /\.s?css$/,

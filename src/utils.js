@@ -32,7 +32,23 @@ const buildExamplePreview = (attributes = {}) => (
   })
 );
 
+const stripTags = (content) => content.replace(/(<([^>]+)>)/gi, '');
+
+const trimWords = (content, maxWords = 55, more = '&hellip;') => {
+  const words = content.split(' ');
+
+  if (maxWords >= words.length) {
+    return content;
+  }
+
+  const truncated = words.slice(0, maxWords);
+
+  return truncated.join(' ') + more;
+};
+
 export {
   convertToBem,
-  buildExamplePreview
+  buildExamplePreview,
+  stripTags,
+  trimWords
 };
