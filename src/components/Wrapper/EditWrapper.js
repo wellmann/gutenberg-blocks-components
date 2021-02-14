@@ -3,8 +3,8 @@ const { withDispatch } = wp.data;
 const { tokenList: TokenList, serverSideRender: ServerSideRender } = wp;
 
 // Local dependencies.
-//import { convertToBem } from 'utils';
-import { EditContext } from 'components';
+import { convertToBem } from '../../utils';
+import EditContext from '../EditContext';
 
 const getEdit = ({ blockNamespace, additionalClassNames, editFunction }) => (
   withDispatch(( dispatch, { className, clientId } ) => {
@@ -16,8 +16,7 @@ const getEdit = ({ blockNamespace, additionalClassNames, editFunction }) => (
       dispatch('core/block-editor').updateBlockAttributes(clientId, { className: list.value });
     }
   })((props) => {
-    //const className = convertToBem(props.className);
-    const className = props.className;
+    const className = convertToBem(props.className);
 
     if (editFunction) {
       return (

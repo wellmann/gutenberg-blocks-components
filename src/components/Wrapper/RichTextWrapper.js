@@ -6,7 +6,7 @@ const { useContext } = wp.element;
 const { RichText } = wp.blockEditor;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 const RichTextWrapper = ({ name, ...props }) => {
   const { attributes, setAttributes, className } = useContext(EditContext);

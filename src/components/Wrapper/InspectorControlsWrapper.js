@@ -3,7 +3,7 @@ const { isValidElement, cloneElement, useContext, Children } = wp.element;
 const { InspectorControls } = wp.blockEditor;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 // https://stackoverflow.com/questions/32916786/react-children-map-recursively/42498730#42498730
 const recursiveMap = (children, fn) => Children.map(children, (child) => {
