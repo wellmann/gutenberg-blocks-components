@@ -70,7 +70,10 @@ module.exports = {
                     wpContentDir + '/themes/' + themeSlug + themeScssIncludesDir
                   ]
                 },
-                prependData: `$assets-path: "../../../../themes/${themeSlug + themeAssetsDir}";`,
+                prependData:
+                  `$assets-path: "../../../../themes/${themeSlug + themeAssetsDir}";` +
+                  '@import "variables";' +
+                  '@import "mixins";',
                 sourceMap: true
               }
             }
