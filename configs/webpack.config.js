@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 const cwd = process.cwd();
 const { config } = require(cwd + '/package.json');
-const themeSlug = config.hasOwnProperty('themeSlug') ? config.themeSlug : basename(cwd).replace('-gutenberg-blocks', '');
+const themeSlug = config.hasOwnProperty('themeSlug') ? config.themeSlug : basename(cwd).replace('-gutenberg-blocks', '-theme');
 const wpContentDir = dirname(dirname(cwd));
 const { themeAssetsDir, themeScssIncludesDir } = config;
 
@@ -18,6 +18,7 @@ module.exports = {
     'editor': [
       dirname(__dirname) + '/dist/editor.js',
       dirname(__dirname) + '/dist/hooks.js',
+      dirname(__dirname) + '/dist/hooks/deviceVisibility.js',
       ...glob.sync(cwd + '/src/**/editor.scss')
     ],
     'critical': glob.sync(cwd + '/src/**/style.critical.scss'),

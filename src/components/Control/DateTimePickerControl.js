@@ -5,7 +5,7 @@ const { PanelRow, Dropdown, Button, DateTimePicker, DatePicker, TimePicker } = w
 const { withInstanceId } = wp.compose;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 const DateTimePickerControl = ({ name, label, time = true, date = true, ...props }) => {
   const id = 'inspector-date-time-picker-control-' + props.instanceId;

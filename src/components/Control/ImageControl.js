@@ -6,7 +6,7 @@ const { useContext } = wp.element;
 const { __ } = wp.i18n;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 const ImagePreview = withSelect((select, { imageId }) => ({ image: select('core').getMedia(imageId) }))(({ image, open }) => (
   <Button onClick={ open } className="editor-post-featured-image__preview">

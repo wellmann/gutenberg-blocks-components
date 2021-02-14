@@ -6,7 +6,7 @@ const { __ } = wp.i18n;
 const { withInstanceId } = wp.compose;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 const MediaControl = ({ label, name, ...restProps }) => {
   const id = 'inspector-media-control-' + restProps.instanceId;

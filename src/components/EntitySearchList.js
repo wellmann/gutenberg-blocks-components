@@ -7,7 +7,7 @@ const { withSelect } = wp.data;
 import { SearchListControl } from '@woocommerce/components/src/search-list-control';
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from './EditContext';
 
 const EntitySearchList = ({ entity, name, items }) => {
   const { attributes, setAttributes } = useContext(EditContext);
