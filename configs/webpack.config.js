@@ -11,6 +11,7 @@ const { config } = require(cwd + '/package.json');
 const themeSlug = config.hasOwnProperty('themeSlug') ? config.themeSlug : basename(cwd).replace('-gutenberg-blocks', '-theme');
 const wpContentDir = dirname(dirname(cwd));
 const { themeAssetsDir, themeScssIncludesDir } = config;
+const prefix = basename(cwd).replace('-gutenberg-blocks', '');
 
 module.exports = {
   mode: 'production',
@@ -31,7 +32,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new DefinePlugin({
       __BLOCKS_DIR__: JSON.stringify(cwd + '/src'),
-      __PREFIX__: JSON.stringify(basename(cwd).replace('-gutenberg-blocks', ''))
+      __PREFIX__: JSON.stringify(prefix),
+      __TEXTDOMAIN__: JSON.stringify(prefix)
     }),
     new DependencyExtractionWebpackPlugin(),
     new ExtractTextPlugin({ filename: '[name].css' }),

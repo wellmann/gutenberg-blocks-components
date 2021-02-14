@@ -9,5 +9,5 @@ export { default as MediaPlaceholder } from './components/Wrapper/MediaPlacehold
 export { default as RichText } from './components/Wrapper/RichTextWrapper';
 export { default as EditContext } from './components/EditContext';
 export { default as EntitySearchList } from './components/EntitySearchList';
-export { default as Gallery } from './Gallery';
+export { default as Gallery } from './components/Gallery';
 export { default as withWordLimit } from './components/withWordLimit';

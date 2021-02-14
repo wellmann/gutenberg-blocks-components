@@ -4,7 +4,7 @@ const { _n, sprintf } = wp.i18n;
 const { withSelect } = wp.data;
 
 // External dependencies.
-import { SearchListControl } from '@woocommerce/components/src/search-list-control';
+import { SearchListControl } from '@woocommerce/components/build/search-list-control';
 
 // Local dependencies.
 import EditContext from './EditContext';

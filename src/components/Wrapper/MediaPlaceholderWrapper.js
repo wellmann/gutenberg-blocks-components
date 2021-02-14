@@ -8,7 +8,7 @@ const { IconButton, Button, Icon } = wp.components;
 const { __ } = wp.i18n;
 
 // Local dependencies.
-import { EditContext } from 'components';
+import EditContext from '../EditContext';
 
 const allowedTypes = ['image'];
 const deleteStyle = {
