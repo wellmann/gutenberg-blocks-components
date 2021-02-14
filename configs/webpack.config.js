@@ -4,7 +4,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const glob = require('glob');
 const { basename, dirname } = require('path');
-const webpack = require('webpack');
+const { DefinePlugin, SourceMapDevToolPlugin } = require('webpack');
 
 const cwd = process.cwd();
 const { config } = require(cwd + '/package.json');
@@ -28,13 +28,17 @@ module.exports = {
     ]
   },
   plugins: [
-    new DependencyExtractionWebpackPlugin(),
     new CleanWebpackPlugin(),
-    new webpack.SourceMapDevToolPlugin({
+    new DefinePlugin({
+      __BLOCKS_DIR__: JSON.stringify(cwd + '/src'),
+      __PREFIX__: JSON.stringify(basename(cwd).replace('-gutenberg-blocks', ''))
+    }),
+    new DependencyExtractionWebpackPlugin(),
+    new ExtractTextPlugin({ filename: '[name].css' }),
+    new SourceMapDevToolPlugin({
       include: ['editor', 'blocks'],
       filename: '[file].map'
-    }),
-    new ExtractTextPlugin({ filename: '[name].css' })
+    })
   ],
   output: {
     filename: '[name].js',

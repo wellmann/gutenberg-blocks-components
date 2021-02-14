@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "globals": {
-    "__TEXTDOMAIN__": true,
+    "__BLOCKS_DIR__": true,
     "__PREFIX__": true
   },
   "env": {

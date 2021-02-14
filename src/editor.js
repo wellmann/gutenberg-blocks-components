@@ -6,7 +6,7 @@ const { registerBlockType } = wp.blocks;
 import { buildExamplePreview } from './utils';
 import getEdit from './components/Wrapper/EditWrapper';
 
-const requireContext = require.context(process.cwd() + '/src', true, /block\.js$/);
+const requireContext = require.context(__BLOCKS_DIR__, true, /block\.js$/);
 requireContext.keys().forEach((key) => {
   let blockName = key.split('/')[1];
   let blockNamespace = __PREFIX__ + '/' + blockName;
