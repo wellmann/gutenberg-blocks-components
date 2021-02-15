@@ -51,10 +51,7 @@ module.exports = {
       {
         test: /\.(js)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: require(dirname(__dirname) + '/configs/babel.config.js')
-        }
+        use: { loader: 'babel-loader' }
       },
       {
         test: /\.s?css$/,

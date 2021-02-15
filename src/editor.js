@@ -19,7 +19,13 @@ requireContext.keys().forEach((key) => {
     category: __PREFIX__,
     example: { attributes: buildExamplePreview(blockSettings.attributes) },
     edit: getEdit({ blockNamespace, editFunction }),
-    save: () => InnerBlocks.Content ? InnerBlocks.Content : null,
+    save() {
+      if (<InnerBlocks.Content />) {
+        return <InnerBlocks.Content />;
+      }
+
+      return null;
+    },
     ...blockSettings
   });
 });
