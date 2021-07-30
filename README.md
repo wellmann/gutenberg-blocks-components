@@ -6,37 +6,55 @@ Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framew
 
 * auto-registration of blocks
 *  only attributes are saved in post content - no markup
-* no need to pass `value`,`setAttributes` and `className` to each component when using our custom wrapper components
-* improved default components
+* no need to pass `value`,`setAttributes` and `className` to each component when using the custom wrapper components
+* new default components
 * class names follow the BEM pattern
 * default example attributes
 
 Import `InspectorControl`, `MediaPlaceholderWrapper` and `RichTextWrapper` from `components` instead of `wp.blockEditor` to write less repetitive code.  
 You only need to add a `name` prop which corresponds to the attribute.
 
+before:
 ```
  <RichText
     value={ attributes.text }
     onChange={ (text) => setAttributes({ text }) } />
 ```
-vs.
+now:
 ```
  <RichText name="text" />
 ```
 
-A selected set of Gutenberg default modules are grouped into a WordPress category, while blocks belonging to this plugins namespace are put into their own category as well.
+## Included components
+
+### Sidebar controls
+
+* [DateTimePickerControl](src/components/Control/DateTimePickerControl.js)
+* [EntitySelectControl](src/components/Control/EntitySelectControl.js)
+* [EntityTokenField](src/components/Control/EntityTokenField.js)
+* [ImageControl](src/components/Control/ImageControl.js)
+* [MediaControl](src/components/Control/MediaControl.js)
+* [URLControl](src/components/Control/URLControl.js)
+
+
+### Wrapper
+
+* [InspectorControlsWrapper](src/components/Control/InspectorControlsWrapper.js)
+* [MediaPlaceholderWrapper](src/components/Control/MediaPlaceholderWrapper.js)
+* [RichTextWrapper](src/components/Control/RichTextWrapper.js)
+
+
+### Editor
+
+* [EntitySearchList](src/components/Control/EntitySearchList.js)
+* [Gallery](src/components/Control/Gallery.js)
+
 
 ## Usage of styles & scripts
 
 The blocks assets are automatically compiled, combined and minified into the `dist` folder (including *.map files).  
-The following variables can be used inside `*.scss` files:
-* `assets_path` - holds the path to the themes `assets` folder
 
-If used in conjunction with a specific setup and theme, variables and mixins from `<theme-name>/assets/css/_includes` can be imported and used inside the blocks `*.scss` files.
-
-To customize these paths look into the config object of the `package.json`.  
-You can use the following options to alter the defaults:
-
-* `themeDirName`
-* `themeAssets`
-* `themeScssIncludes`
+The following config properties can be used in `package.json` to define the paths where to look for scss includes of the theme (by default the scss-loader is prepending imports for `_variables.scss` and `_mixins_.scss`):
+* `themeSlug`
+* `themeAssetsDir`
+* `themeScssIncludesDir`
