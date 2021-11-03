@@ -1,5 +1,5 @@
 // WordPress dependencies.
-const { useContext } = wp.element;
+const { useContext, useState } = wp.element;
 const { _n, sprintf } = wp.i18n;
 const { withSelect } = wp.data;
 
@@ -11,6 +11,7 @@ import EditContext from './EditContext';
 
 const EntitySearchList = ({ entity, name, items }) => {
   const { attributes, setAttributes } = useContext(EditContext);
+  const [searchInput, setSearchInput] = useState({ search: '' });
   const options = [];
 
   if (items) {
@@ -23,6 +24,9 @@ const EntitySearchList = ({ entity, name, items }) => {
 
   return (
     <SearchListControl
+      setState={ setSearchInput }
+      search={ searchInput.search || '' }
+      debouncedSpeak={ () => null }
       value={ attributes[name] }
       onChange={ ( value = [] ) => setAttributes({ [name]: value.map((item) => item.id) }) }
       isLoading={ !items }
