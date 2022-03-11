@@ -16,7 +16,8 @@ const getEdit = ({ blockNamespace, additionalClassNames, editFunction }) => (
       dispatch('core/block-editor').updateBlockAttributes(clientId, { className: list.value });
     }
   })((props) => {
-    let className = convertToBem(props.className);
+    let className = 'block ';
+    className += convertToBem(props.className);
 
     if (editFunction) {
       if (props.attributes.align && ['full', 'wide'].includes(props.attributes.align)) {
