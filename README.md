@@ -2,6 +2,18 @@
 
 Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framework.
 
+## Changes from 1.x.x to 2.x.x
+
+* switch to Gutenberg apiVersion 2
+* webpack 4 to 5
+* webpack & webpack-cli as peerDependencies
+* package namespace changed to `@wellmann`
+* removed: deviceVisibility hooks + default example attributes + default grouping + additionalClassNames + TEXTDOMAIN replacement
+* additional configration options in package.json (see below)
+* updated webpack config with CSS Modules and SVGR support
+* node-sass to sass and other depencencies updated to their latest versions
+* refactoring / renaming
+
 ## Features
 
 * auto-registration of blocks
@@ -9,7 +21,6 @@ Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framew
 * no need to pass `value`,`setAttributes` and `className` to each component when using the custom wrapper components
 * new default components
 * class names follow the BEM pattern
-* default example attributes
 
 Import `InspectorControl`, `MediaPlaceholderWrapper` and `RichTextWrapper` from `components` instead of `wp.blockEditor` to write less repetitive code.  
 You only need to add a `name` prop which corresponds to the attribute.
@@ -54,7 +65,29 @@ now:
 
 The blocks assets are automatically compiled, combined and minified into the `dist` folder (including *.map files).  
 
-The following config properties can be used in `package.json` to define the paths where to look for scss includes of the theme (by default the scss-loader is prepending imports for `_variables.scss` and `_mixins_.scss`):
-* `themeSlug`
-* `themeAssetsDir`
-* `themeScssIncludesDir`
+The following config properties can be used in `package.json` to define the paths where to look for scss includes of the theme (by default the scss-loader is prepending imports defined in `package.json` config as `scssDefaultImports`):
+* `themeSlug` - defaults to cwd name where `-gutenberg-blocks` is replaced with `-theme`
+* `themeAssetsDir` - required; example `/dist`
+* `themeScssIncludesDir` - required; example `/assets/scss/_includes`
+
+To further customize some settings these options have been added:
+* `blocksDir` - default `/blocks`
+* `scssDefaultImports` - default `[]`; example `['variables.scss']`
+* `defaultBlockCategory` - default `''`
+
+## Installation
+
+Add a `.npmrc` file to your project root next to the package.json wiht the following contents:
+```
+@wellmann:registry=https://npm.pkg.github.com
+```
+Authentication to [GitHub Packages](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages).
+
+Or just add it to your dependencies like this:
+```json
+{
+  "dependencies": {
+    "@wellmann/gutenberg-blocks-components": "github:wellmann/gutenberg-blocks-components#v2.0.0"
+  }
+}
+```

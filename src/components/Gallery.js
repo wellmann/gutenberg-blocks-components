@@ -10,6 +10,7 @@ const { __ } = wp.i18n;
 
 // Local dependencies.
 import EditContext from './EditContext';
+import { blockNameToBlockClassName } from '../utils';
 
 const ImagePreview = withSelect((select, { imageId }) => ({ image: select('core').getMedia(imageId) }))(({ image }) => (
   <>
@@ -19,10 +20,10 @@ const ImagePreview = withSelect((select, { imageId }) => ({ image: select('core'
   </>
 ));
 const Gallery = ({ name, label = __('Image'), width = '100%', height, ...props }) => {
-  const { attributes, setAttributes, className, isSelected } = useContext(EditContext);
+  const { attributes, setAttributes, name: blockName, isSelected } = useContext(EditContext);
   const value = attributes[name];
   const allowedTypes = ['image'];
-  const bem = new BEMHelper(className.split(' ')[0]);
+  const bem = new BEMHelper(blockNameToBlockClassName(blockName));
   const onSelect = (images) => setAttributes({ [name]: images.map((image) => image.id) });
   const previewImageId = value.length > 0 ? value[0] : undefined;
   const previewStyle = {

@@ -7,11 +7,12 @@ const { RichText } = wp.blockEditor;
 
 // Local dependencies.
 import EditContext from '../EditContext';
+import { blockNameToBlockClassName } from '../../utils';
 
 const RichTextWrapper = ({ name, ...props }) => {
-  const { attributes, setAttributes, className } = useContext(EditContext);
+  const { attributes, setAttributes, name: blockName } = useContext(EditContext);
   const bem = new BEMHelper({
-    name: className.split(' ')[0],
+    name: blockNameToBlockClassName(blockName),
     outputIsString: true
   });
 

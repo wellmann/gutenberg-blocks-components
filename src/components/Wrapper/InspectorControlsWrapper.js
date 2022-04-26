@@ -34,7 +34,7 @@ const InspectorControlsWrapper = ({ children }) => {
               ...{
                 value,
                 checked: value,
-                onChange: (value) => setAttributes({ [name]: value })
+                onChange: (value) => setAttributes({ [name]: Number.isInteger(value) ? parseInt(value) : value })
               },
               ...child.props
             });

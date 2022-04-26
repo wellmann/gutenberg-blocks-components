@@ -2,8 +2,7 @@
   "parser": "babel-eslint",
   "globals": {
     "__BLOCKS_DIR__": true,
-    "__PREFIX__": true,
-    "__TEXTDOMAIN__": true
+    "__PREFIX__": true
   },
   "env": {
     "browser": true,
@@ -22,7 +21,7 @@
     }
   },
   "extends": [
-    "wordpress",
+    "plugin:@wordpress/eslint-plugin/recommended",
     "plugin:react/recommended",
     "eslint:recommended"
   ],

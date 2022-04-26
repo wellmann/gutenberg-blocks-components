@@ -9,6 +9,7 @@ const { __ } = wp.i18n;
 
 // Local dependencies.
 import EditContext from '../EditContext';
+import { blockNameToBlockClassName } from '../../utils';
 
 const allowedTypes = ['image'];
 const deleteStyle = {
@@ -22,9 +23,9 @@ const deleteStyle = {
 };
 
 const MediaPlaceholderWrapper = ({ name, label = __('Image'), width = '100%', height, ...props }) => {
-  const { attributes, setAttributes, className, isSelected } = useContext(EditContext);
+  const { attributes, setAttributes, name: blockName, isSelected } = useContext(EditContext);
   const value = attributes[name];
-  const bem = new BEMHelper(className.split(' ')[0]);
+  const bem = new BEMHelper(blockNameToBlockClassName(blockName));
   const onSelect = ({ id, url }) => setAttributes({ [name]: { id, url } });
   const onDelete = (event) => {
     event.stopPropagation();
