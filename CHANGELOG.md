@@ -5,7 +5,6 @@
 * switched to Gutenberg apiVersion 2
 * webpack 4 to 5
 * webpack config exports an array (multi-config)
-* webpack & webpack-cli as peerDependencies
 * package namespace changed to `@wellmann`
 * removed: deviceVisibility hooks + default example attributes + default grouping + additionalClassNames + TEXTDOMAIN replacement
 * additional configration options in package.json (see README.md)
