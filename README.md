@@ -2,18 +2,6 @@
 
 Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framework.
 
-## Changes from 1.x.x to 2.x.x
-
-* switch to Gutenberg apiVersion 2
-* webpack 4 to 5
-* webpack & webpack-cli as peerDependencies
-* package namespace changed to `@wellmann`
-* removed: deviceVisibility hooks + default example attributes + default grouping + additionalClassNames + TEXTDOMAIN replacement
-* additional configration options in package.json (see below)
-* updated webpack config with CSS Modules and SVGR support
-* node-sass to sass and other depencencies updated to their latest versions
-* refactoring / renaming
-
 ## Features
 
 * auto-registration of blocks
