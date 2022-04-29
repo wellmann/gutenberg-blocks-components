@@ -1,54 +1,50 @@
 // External dependencies.
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { createHash } = require('crypto');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const fastGlob = require('fast-glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { basename, dirname } = require('path');
+const { basename, dirname, join } = require('path');
 const { DefinePlugin, SourceMapDevToolPlugin } = require('webpack');
 
-const cwd = process.cwd();
-const { config } = require(cwd + '/package.json');
-const themeSlug = config.themeSlug || basename(cwd).replace('-gutenberg-blocks', '-theme');
-const wpContentDir = dirname(dirname(cwd));
-const { themeAssetsDir, themeScssIncludesDir } = config;
-const blocksDir = config.blocksDir || '/blocks';
-const prefix = basename(cwd).replace('-gutenberg-blocks', '');
-
-const getLocalIdent = ({ resourcePath, mode }, localIdentName, localName) => {
-  const hash = createHash('sha256')
-    .update(resourcePath + localName)
-    .digest('hex')
-    .slice(0, 5);
-  localIdentName = basename(resourcePath, '.module.scss');
-
-  return mode === 'production' ? `_${hash}` : `${localIdentName}__${localName}_${hash}`;
-};
+// Local dependencies.
+const {
+  BLOCKS_DIR,
+  DEFAULT_BLOCK_CATEGORY,
+  PREFIX,
+  SCSS_DEFAULT_IMPORTS,
+  THEME_DIST_DIR,
+  THEME_SCSS_INCLUDES_DIR,
+  THEME_SLUG,
+  WP_CONTENT_DIR
+} = require('../dist/config');
+const { getLocalIdent } = require('../dist/utils');
 
 const cssLoaderOptions = {
   url: false,
   sourceMap: true
 };
+
 const sassLoaderOptions = {
   sassOptions: {
     includePaths: [
-      cwd + '/src',
-      wpContentDir + '/themes/' + themeSlug + themeScssIncludesDir
+      join(process.cwd(), BLOCKS_DIR),
+      join(WP_CONTENT_DIR, 'themes', THEME_SLUG, THEME_SCSS_INCLUDES_DIR)
     ]
   },
   additionalData:
-    '$assets-path: "../../../../themes/${themeSlug + themeAssetsDir}";' +
-    (config.scssDefaultImports ? config.scssDefaultImports.map((file) => `@use "${file}" as *;`) : ''),
+    '$assets-path: "../../../../themes/${join(THEME_SLUG, THEME_DIST_DIR)}";' +
+    (SCSS_DEFAULT_IMPORTS ? SCSS_DEFAULT_IMPORTS.map((file) => `@use "${file}" as *;`) : ''),
   sourceMap: true
 };
+
 const sharedConfig = {
   mode: 'production',
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new DefinePlugin({
-      __BLOCKS_DIR__: JSON.stringify(cwd + blocksDir),
-      __DEFAULT_BOCK_CAT__: JSON.stringify(config.defaultBlockCategory || ''),
-      __PREFIX__: JSON.stringify(prefix)
+      __BLOCKS_DIR__: JSON.stringify(join(process.cwd(), BLOCKS_DIR)),
+      __DEFAULT_BOCK_CAT__: JSON.stringify(DEFAULT_BLOCK_CATEGORY),
+      __PREFIX__: JSON.stringify(PREFIX)
     }),
     new MiniCssExtractPlugin(),
     new SourceMapDevToolPlugin({
@@ -58,7 +54,7 @@ const sharedConfig = {
   ],
   output: {
     filename: '[name].js',
-    path: cwd + '/dist'
+    path: process.cwd() + '/dist'
   },
   module: {
     rules: [
@@ -107,13 +103,13 @@ const sharedConfig = {
     ]
   }
 };
-const editorConfig = {
+
+let editorConfig = {
   ...sharedConfig,
   entry: {
     editor: [
       dirname(__dirname) + '/dist/block-registrar.js',
-      dirname(__dirname) + '/dist/block-attribute-hooks.js',
-      ...fastGlob.sync([cwd + blocksDir + '/**/editor.scss'])
+      dirname(__dirname) + '/dist/block-attribute-hooks.js'
     ]
   },
   plugins: [
@@ -130,15 +126,33 @@ const editorConfig = {
     ]
   }
 };
-const frontendConfig = {
+
+const editorStyles = fastGlob.sync([join(process.cwd(), BLOCKS_DIR) + '/**/editor.scss']);
+if (editorStyles) {
+  editorConfig.entry.editor = [
+    ...editorConfig.entry.editor,
+    ...editorStyles
+  ];
+}
+
+let frontendConfig = {
   ...sharedConfig,
-  entry: {
-    critical: fastGlob.sync([cwd + blocksDir + '/**/style.critical.scss']),
-    blocks: [
-      ...fastGlob.sync([cwd + blocksDir + '/**/style.scss']),
-      ...fastGlob.sync([cwd + blocksDir + '/**/script.js'])
-    ]
-  }
+  entry: {}
 };
+
+const criticalFrontendStyles = fastGlob.sync([join(process.cwd(), BLOCKS_DIR) + '/**/style.critical.scss']);
+if (criticalFrontendStyles) {
+  frontendConfig.entry.critical = criticalFrontendStyles;
+}
+
+const frontendStyles = fastGlob.sync([join(process.cwd(), BLOCKS_DIR) + '/**/style.scss']);
+if (frontendStyles) {
+  frontendConfig.entry.blocks = criticalFrontendStyles;
+}
+
+const frontendScripts = fastGlob.sync([join(process.cwd(), BLOCKS_DIR) + '/**/script.js']);
+if (frontendScripts) {
+  frontendConfig.entry.blocks = frontendConfig.entry.blocks && frontendConfig.entry.blocks ? [...frontendConfig.entry.blocks, ...frontendScripts] : frontendScripts;
+}
 
 module.exports = [editorConfig, frontendConfig];

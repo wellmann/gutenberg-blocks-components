@@ -55,11 +55,11 @@ The blocks assets are automatically compiled, combined and minified into the `di
 
 The following config properties can be used in `package.json` to define the paths where to look for scss includes of the theme (by default the scss-loader is prepending imports defined in `package.json` config as `scssDefaultImports`):
 * `themeSlug` - defaults to cwd name where `-gutenberg-blocks` is replaced with `-theme`
-* `themeAssetsDir` - required; example `/dist`
-* `themeScssIncludesDir` - required; example `/assets/scss/_includes`
+* `themeDistDir` - default `dist`
+* `themeScssIncludesDir` - default `assets/scss/_includes`
 
 To further customize some settings these options have been added:
-* `blocksDir` - default `/blocks`
+* `blocksDir` - default `blocks`
 * `scssDefaultImports` - default `[]`; example `['variables.scss']`
 * `defaultBlockCategory` - default `''`
 

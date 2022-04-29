@@ -1,3 +1,14 @@
+// External dependencies.
+const { createHash } = require('crypto');
+
+const blockNameToBlockClassName = (blockName) => {
+  const blockNameParts = blockName.split('/');
+  const blockNamespace = blockNameParts[0];
+  const blockSlug = blockNameParts[1];
+
+  return 'block-' + blockSlug;
+};
+
 /**
  * Workaround until https://github.com/WordPress/gutenberg/issues/11763 is fixed.
  */
@@ -14,12 +25,14 @@ const convertToBem = (baseClassName, className) => {
   return classNames.join(' ');
 };
 
-const blockNameToBlockClassName = (blockName) => {
-  const blockNameParts = blockName.split('/');
-  const blockNamespace = blockNameParts[0];
-  const blockSlug = blockNameParts[1];
+const getLocalIdent = ({ resourcePath, mode }, localIdentName, localName) => {
+  const hash = createHash('sha256')
+    .update(resourcePath + localName)
+    .digest('hex')
+    .slice(0, 5);
+  localIdentName = basename(resourcePath, '.module.scss');
 
-  return 'block-' + blockSlug;
+  return mode === 'production' ? `_${hash}` : `${localIdentName}__${localName}_${hash}`;
 };
 
 const stripTags = (content) => content.replace(/(<([^>]+)>)/gi, '');
@@ -37,8 +50,9 @@ const trimWords = (content, maxWords = 55, more = '&hellip;') => {
 };
 
 export {
-  convertToBem,
   blockNameToBlockClassName,
+  convertToBem,
+  getLocalIdent,
   stripTags,
   trimWords
 };
