@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "rootDir": "../",
+    "outDir": "../dist",
+		"allowSyntheticDefaultImports": true,
+		"jsx": "preserve",
+		"target": "esnext",
+		"module": "esnext",
+		"lib": [ "dom", "esnext" ],
+		"declaration": true,
+		"declarationMap": true,
+		"composite": true,
+		"emitDeclarationOnly": true,
+		"isolatedModules": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"importsNotUsedAsValues": "error",
+		"moduleResolution": "node",
+		"esModuleInterop": false,
+		"resolveJsonModule": true,
+		"typeRoots": [ "./node_modules/@types" ],
+		"types": [ "node" ]
+  },
+  "include": [
+      "../src"
+  ]
+}

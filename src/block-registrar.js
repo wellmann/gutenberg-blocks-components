@@ -1,5 +1,5 @@
 // WordPress dependencies.
-const { registerBlockType, registerBlockCollection } = wp.blocks;
+const { registerBlockType } = wp.blocks;
 
 // Local dependencies.
 import Edit from './components/Wrapper/EditWrapper';

@@ -54,6 +54,9 @@ const sharedConfig = {
       filename: '[file].map'
     })
   ],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
   output: {
     filename: '[name].js',
     path: process.cwd() + '/dist'
@@ -61,7 +64,7 @@ const sharedConfig = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
         use: { loader: 'babel-loader' }
       },
@@ -129,9 +132,7 @@ let editorConfig = {
   }
 };
 
-const blocksDirPathGlob = join(blocksDirPath, '**');
-
-const editorStyles = fastGlob.sync([join(blocksDirPathGlob, 'editor.scss')]);
+const editorStyles = fastGlob.sync([join(blocksDirPath, '**', 'editor.scss')]);
 if (editorStyles) {
   editorConfig.entry.editor = [
     ...editorConfig.entry.editor,
@@ -144,17 +145,17 @@ let frontendConfig = {
   entry: {}
 };
 
-const criticalFrontendStyles = fastGlob.sync([join(blocksDirPathGlob, 'style.critical.scss')]);
+const criticalFrontendStyles = fastGlob.sync([join(blocksDirPath, '**', 'style.critical.scss')]);
 if (criticalFrontendStyles) {
   frontendConfig.entry.critical = criticalFrontendStyles;
 }
 
-const frontendStyles = fastGlob.sync([join(blocksDirPathGlob, 'style.scss')]);
+const frontendStyles = fastGlob.sync([join(blocksDirPath, '**', 'style.scss')]);
 if (frontendStyles) {
   frontendConfig.entry.blocks = frontendStyles;
 }
 
-const frontendScripts = fastGlob.sync([join(blocksDirPathGlob, 'script.js')]);
+const frontendScripts = fastGlob.sync([join(blocksDirPath, '**', 'script.js')]);
 if (frontendScripts) {
   frontendConfig.entry.blocks = frontendConfig.entry.blocks ? [...frontendConfig.entry.blocks, ...frontendScripts] : frontendScripts;
 }
