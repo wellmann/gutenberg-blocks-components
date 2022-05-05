@@ -33,9 +33,7 @@ const sassLoaderOptions = {
       join(WP_CONTENT_DIR, 'themes', THEME_SLUG, THEME_SCSS_INCLUDES_DIR)
     ]
   },
-  additionalData:
-    '$assets-path: "../../../../themes/${join(THEME_SLUG, THEME_DIST_DIR)}";' +
-    (SCSS_DEFAULT_IMPORTS ? SCSS_DEFAULT_IMPORTS.map((file) => `@use "${file}" as *;`) : ''),
+  additionalData: (SCSS_DEFAULT_IMPORTS ? SCSS_DEFAULT_IMPORTS.map((file) => `@use "${file}" as *;`).join('\n') : ''),
   sourceMap: true
 };
 
