@@ -23,7 +23,10 @@ const blocksDirPath = join(process.cwd(), BLOCKS_DIR);
 
 const cssLoaderOptions = {
   url: false,
-  sourceMap: true
+  sourceMap: true,
+  modules: {
+    mode: 'icss'
+  }
 };
 
 const sassLoaderOptions = {
