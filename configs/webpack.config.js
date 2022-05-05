@@ -140,6 +140,14 @@ if (editorStyles) {
   ];
 }
 
+const editorHooks = fastGlob.sync([join(blocksDirPath, '**', 'hook.js')]);
+if (editorHooks) {
+  editorConfig.entry.editor = [
+    ...editorConfig.entry.editor,
+    ...editorHooks
+  ];
+}
+
 let frontendConfig = {
   ...sharedConfig,
   entry: {}
