@@ -13,6 +13,7 @@ requireContext.keys().forEach((key) => {
 
   delete blockSettings.edit;
 
+  blockSettings.supports = blockSettings.supports || {};
   blockSettings.supports.html = false; // Since save is returning null the blocks HTML can't be edited.
 
   registerBlockType(blockName, {
