@@ -1,7 +1,3 @@
-// External dependencies.
-const { createHash } = require('crypto');
-const { basename } = require('path');
-
 const blockNameToBlockClassName = (blockName: string): string => {
   const blockNameParts = blockName.split('/');
   const blockSlug = blockNameParts[1];
@@ -25,16 +21,6 @@ const convertToBem = (baseClassName: string, className: string): string => {
   return classNames.join(' ');
 };
 
-const getLocalIdent = ({ resourcePath, mode }: { resourcePath: string; mode: string }, localIdentName: string, localName: string): string => {
-  const hash = createHash('sha256')
-    .update(resourcePath + localName)
-    .digest('hex')
-    .slice(0, 5);
-  localIdentName = basename(resourcePath, '.module.scss');
-
-  return mode === 'production' ? `_${hash}` : `${localIdentName}__${localName}_${hash}`;
-};
-
 const stripTags = (content: string): string => content.replace(/(<([^>]+)>)/gi, '');
 
 const trimWords = (content: string, maxWords: number = 55, more: string = '&hellip;'): string => {
@@ -52,7 +38,6 @@ const trimWords = (content: string, maxWords: number = 55, more: string = '&hell
 export {
   blockNameToBlockClassName,
   convertToBem,
-  getLocalIdent,
   stripTags,
   trimWords
 };

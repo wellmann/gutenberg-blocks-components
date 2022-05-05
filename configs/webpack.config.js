@@ -1,5 +1,6 @@
 // External dependencies.
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { createHash } = require('crypto');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const fastGlob = require('fast-glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -17,7 +18,16 @@ const {
   THEME_SLUG,
   WP_CONTENT_DIR
 } = require('../dist/config');
-const { getLocalIdent } = require('../dist/utils');
+
+const getLocalIdent = ({ resourcePath, mode }: { resourcePath: string; mode: string }, localIdentName: string, localName: string): string => {
+  const hash = createHash('sha256')
+    .update(resourcePath + localName)
+    .digest('hex')
+    .slice(0, 5);
+  localIdentName = basename(resourcePath, '.module.scss');
+
+  return mode === 'production' ? `_${hash}` : `${localIdentName}__${localName}_${hash}`;
+};
 
 const blocksDirPath = join(process.cwd(), BLOCKS_DIR);
 
