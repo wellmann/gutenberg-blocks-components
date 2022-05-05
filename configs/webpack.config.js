@@ -19,7 +19,7 @@ const {
   WP_CONTENT_DIR
 } = require('../dist/config');
 
-const getLocalIdent = ({ resourcePath, mode }: { resourcePath: string; mode: string }, localIdentName: string, localName: string): string => {
+const getLocalIdent = ({ resourcePath, mode }, localIdentName, localName) => {
   const hash = createHash('sha256')
     .update(resourcePath + localName)
     .digest('hex')
