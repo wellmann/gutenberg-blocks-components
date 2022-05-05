@@ -4,7 +4,7 @@
   "description": "Accompanying npm package for https://github.com/wellmann/gutenberg-blocks-framework.",
   "main": "dist/index.js",
   "scripts": {
-    "prepare": "babel --config-file ./configs/.babelrc.js src/ --out-dir dist",
+    "prepare": "babel --config-file ./configs/.babelrc.js src/ --out-dir dist --extensions '.ts,.js'",
     "type-check": "tsc --project ./configs/tsconfig.json --noEmit --emitDeclarationOnly false",
     "type-check:watch": "npm run type-check -- --watch"
   },
