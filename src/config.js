@@ -6,6 +6,7 @@ const packageJson = require(join(process.cwd(), 'package.json'));
 
 export const BLOCKS_DIR = packageJson.config?.['blocksDir'] || 'blocks';
 export const DEFAULT_BLOCK_CATEGORY = packageJson.config?.['defaultBlockCategory'] || '';
+export const PLUGINS_DIR = packageJson.config?.['pluginsDir'] || 'plugins';
 export const PREFIX = packageJson.config?.['prefix'] || basename(process.cwd()).replace('-gutenberg-blocks', '');
 export const SCSS_DEFAULT_IMPORTS = packageJson.config?.['scssDefaultImports'] || [];
 export const THEME_DIST_DIR = packageJson.config?.['themeDistDir'] || 'dist';
