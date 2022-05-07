@@ -1,4 +1,5 @@
 export { default as DateTimePickerControl } from './components/Control/DateTimePickerControl';
+export { default as EntityComboboxControl } from './components/Control/EntityComboboxControl';
 export { default as EntitySelectControl } from './components/Control/EntitySelectControl';
 export { default as EntityTokenField } from './components/Control/EntityTokenField';
 export { default as ImageControl } from './components/Control/ImageControl';
