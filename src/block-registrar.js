@@ -21,8 +21,8 @@ requireContext.keys().forEach((key) => {
     category: __DEFAULT_BOCK_CAT__,
     edit: Edit({ blockName, editFunction }),
     save({ attributes }) {
-      if (attributes.content) {
-        return attributes.content;
+      if (<InnerBlocks.Content />) {
+        return <InnerBlocks.Content />;
       }
 
       return null;
