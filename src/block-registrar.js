@@ -1,4 +1,5 @@
 // WordPress dependencies.
+const { InnerBlocks } = wp.blockEditor;
 const { registerBlockType } = wp.blocks;
 
 // Local dependencies.
