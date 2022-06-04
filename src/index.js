@@ -4,6 +4,7 @@ export { default as EntitySelectControl } from './components/Control/EntitySelec
 export { default as EntityTokenField } from './components/Control/EntityTokenField';
 export { default as ImageControl } from './components/Control/ImageControl';
 export { default as MediaControl } from './components/Control/MediaControl';
+export { default as SortableListControl } from './components/Control/SortableListControl';
 export { default as URLControl } from './components/Control/URLControl';
 export { default as getEdit } from './components/Wrapper/EditWrapper';
 export { default as InspectorControls } from './components/Wrapper/InspectorControlsWrapper';
