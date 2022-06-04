@@ -5,9 +5,6 @@ const { withSelect } = wp.data;
 const { useContext } = wp.element;
 const { __ } = wp.i18n;
 
-// Local dependencies.
-import EditContext from '../EditContext';
-
 const ImagePreview = withSelect((select, { imageId }) => ({ image: select('core').getMedia(imageId) }))(({ image, open }) => (
   <Button onClick={ open } className="editor-post-featured-image__preview">
     { image && <ResponsiveWrapper naturalWidth={ image.media_details.width } naturalHeight={ image.media_details.height }>
@@ -16,15 +13,13 @@ const ImagePreview = withSelect((select, { imageId }) => ({ image: select('core'
   </Button>
 ));
 
-const ImageControl = ({ label, name, ...restProps }) => {
-  const { attributes, setAttributes } = useContext(EditContext);
-  const value = name ? attributes[name] : restProps.value;
-  const onRemove = () => setAttributes({ [name]: null });
+const ImageControl = ({ label, value, onChange, ...restProps }) => {
+  const onRemove = () => onChange(null);
 
   return (
     <MediaUpload
       value={ value }
-      onSelect={ ({ id }) => setAttributes({ [name]: id }) }
+      onSelect={ ({ id }) => onChange(id) }
       allowedTypes={ ['image'] }
       render={ ({ open }) => (
         <div className="editor-post-featured-image">

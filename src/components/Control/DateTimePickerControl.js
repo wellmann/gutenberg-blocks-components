@@ -4,14 +4,9 @@ const { dateI18n, __experimentalGetSettings } = wp.date;
 const { PanelRow, Dropdown, Button, DateTimePicker, DatePicker, TimePicker } = wp.components;
 const { withInstanceId } = wp.compose;
 
-// Local dependencies.
-import EditContext from '../EditContext';
-
-const DateTimePickerControl = ({ name, label, time = true, date = true, ...props }) => {
+const DateTimePickerControl = ({ label, time = true, date = true, value, ...props }) => {
   const id = 'inspector-date-time-picker-control-' + props.instanceId;
-  const { attributes } = useContext(EditContext);
   const settings = __experimentalGetSettings();
-  const value = attributes[name];
   let Picker = DateTimePicker;
   let format = `${settings.formats.date} ${settings.formats.time}`;
 

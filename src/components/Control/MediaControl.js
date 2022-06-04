@@ -5,13 +5,8 @@ const { BaseControl, Button } = wp.components;
 const { __ } = wp.i18n;
 const { withInstanceId } = wp.compose;
 
-// Local dependencies.
-import EditContext from '../EditContext';
-
-const MediaControl = ({ label, name, ...restProps }) => {
+const MediaControl = ({ label, value, onChange, ...restProps }) => {
   const id = 'inspector-media-control-' + restProps.instanceId;
-  const { attributes, setAttributes } = useContext(EditContext);
-  const value = attributes[name];
   const buttonStyle = {
     display: 'block',
     width: 200,
@@ -25,7 +20,7 @@ const MediaControl = ({ label, name, ...restProps }) => {
       <label htmlFor={ id } className="components-base-control__label">{ label }</label>
       <div className="components-panel__row" style={ { marginTop: 0 } }>
         <MediaUpload
-          onSelect={ ({ id, url }) => setAttributes({ [name]: { id, url } }) }
+          onSelect={ ({ id, url }) => onChange({ id, url }) }
           render={ ({ open }) => (
             <>
               <Button
@@ -36,7 +31,7 @@ const MediaControl = ({ label, name, ...restProps }) => {
                 <Button
                   disabled={ !value }
                   icon="no-alt"
-                  onClick={ () => setAttributes({ [name]: null }) }
+                  onClick={ () => onChange(null) }
                   label={ __('Remove') }
                 />
             </>

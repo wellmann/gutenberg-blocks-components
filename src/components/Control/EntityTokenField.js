@@ -5,14 +5,10 @@ const { FormTokenField } = wp.components;
 const { useContext } = wp.element;
 const { withSelect } = wp.data;
 
-// Local dependencies.
-import EditContext from '../EditContext';
-
-const EntityTokenField = ({ entity, name, items, ...restProps }) => {
-  const { attributes, setAttributes } = useContext(EditContext);
-  const selectedItems = attributes[name] ?? [];
+const EntityTokenField = ({ entity, items, value, onChange, ...restProps }) => {
+  const selectedItems = value ?? [];
   let suggestions = [];
-  let value = [];
+  let internalValue = [];
 
   const getDisplayValue = (item) => {
     switch (entity) {
@@ -26,13 +22,13 @@ const EntityTokenField = ({ entity, name, items, ...restProps }) => {
   if (items) {
     suggestions = items.map((item) => getDisplayValue(item));
 
-    value = selectedItems.map((itemId) => {
+    internalValue = selectedItems.map((itemId) => {
       let matchedPost = items.find((item) => item.id === itemId);
       return matchedPost ? getDisplayValue(matchedPost) : false;
     });
   }
 
-  const onChange = (selectedItems) => {
+  const internalOnChange = (selectedItems) => {
     let selectedItemsArray = [];
     selectedItems.map((itemName) => {
       const matchingItem = items.find((item) => getDisplayValue(item) === itemName);
@@ -41,15 +37,15 @@ const EntityTokenField = ({ entity, name, items, ...restProps }) => {
       }
     });
 
-    setAttributes({ [name]: selectedItemsArray });
+    onChange(selectedItemsArray);
   };
 
   return <FormTokenField
     { ...restProps }
-    value={ value }
+    value={ internalValue }
     suggestions={ suggestions }
     maxSuggestions={ 20 }
-    onChange={ onChange }
+    onChange={ internalOnChange }
   />;
 };
 
