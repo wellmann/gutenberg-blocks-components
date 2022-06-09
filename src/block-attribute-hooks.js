@@ -17,17 +17,6 @@ addFilter('blocks.registerBlockType', __PREFIX__ + '/anchor/attribute', (setting
 });
 
 /**
- * Convert class name for styles of custom blocks to BEM.
- */
-addFilter('blocks.getBlockAttributes', __PREFIX__ + '/block/className', (attributes, block) => {
-  if (block.name.indexOf(__PREFIX__ + '/') === 0 && attributes.className) {
-    attributes.className = convertToBem(blockNameToBlockClassName(block.name), attributes.className);
-  }
-
-  return attributes;
-})
-
-/**
  * Change class names for custom blocks in editor to match front end.
  */
 addFilter('blocks.getBlockDefaultClassName', __PREFIX__ + '/block/className', (className, blockName) => blockName.indexOf(__PREFIX__ + '/') === 0 ? 'block ' + blockNameToBlockClassName(blockName) : className);
