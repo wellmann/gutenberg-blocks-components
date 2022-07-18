@@ -31,12 +31,13 @@ const getLocalIdent = ({ resourcePath, mode }, localIdentName, localName) => {
   return mode === 'production' ? `_${hash}` : `${localIdentName}__${localName}_${hash}`;
 };
 
+const isDev = process.argv.indexOf('--mode=development') > -1;
 const blocksDirPath = join(process.cwd(), BLOCKS_DIR);
 const pluginsDirPath = join(process.cwd(), PLUGINS_DIR);
 
 const cssLoaderOptions = {
   url: false,
-  sourceMap: true,
+  sourceMap: isDev,
   modules: {
     mode: 'icss'
   }
@@ -50,7 +51,7 @@ const sassLoaderOptions = {
     ]
   },
   additionalData: (SCSS_DEFAULT_IMPORTS ? SCSS_DEFAULT_IMPORTS.map((file) => `@use "${file}" as *;`).join('\n') : ''),
-  sourceMap: true
+  sourceMap: isDev
 };
 
 const sharedConfig = {
@@ -106,12 +107,12 @@ const sharedConfig = {
           {
             loader: 'css-loader',
             options: {
+              ...cssLoaderOptions,
               modules: {
                 getLocalIdent,
                 exportLocalsConvention: 'camelCaseOnly',
                 mode: (resourcePath) => resourcePath.includes('node_modules') ? 'global' : 'local' // Do not transform class names of external scripts.
-              },
-              ...cssLoaderOptions
+              }
             }
           },
           {
