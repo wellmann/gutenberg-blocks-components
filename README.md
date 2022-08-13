@@ -60,7 +60,6 @@ The following config properties can be used in `package.json` to define the path
 
 To further customize some settings these options have been added:
 * `blocksDir` - default `blocks`
-* `pluginsDir` - default `plugins`
 * `scssDefaultImports` - default `[]`; example `['variables.scss']`
 * `defaultBlockCategory` - default `''`
 

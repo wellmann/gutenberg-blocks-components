@@ -12,7 +12,6 @@ const { DefinePlugin, SourceMapDevToolPlugin } = require('webpack');
 const {
   BLOCKS_DIR,
   DEFAULT_BLOCK_CATEGORY,
-  PLUGINS_DIR,
   PREFIX,
   SCSS_DEFAULT_IMPORTS,
   THEME_DIST_DIR,
@@ -33,7 +32,6 @@ const getLocalIdent = ({ resourcePath, mode }, localIdentName, localName) => {
 
 const isDev = process.argv.indexOf('--mode=development') > -1;
 const blocksDirPath = join(process.cwd(), BLOCKS_DIR);
-const pluginsDirPath = join(process.cwd(), PLUGINS_DIR);
 
 const cssLoaderOptions = {
   url: false,
@@ -61,7 +59,6 @@ const sharedConfig = {
     new DefinePlugin({
       __BLOCKS_DIR__: JSON.stringify(blocksDirPath),
       __DEFAULT_BOCK_CAT__: JSON.stringify(DEFAULT_BLOCK_CATEGORY),
-      __PLUGINS_DIR__: JSON.stringify(pluginsDirPath),
       __PREFIX__: JSON.stringify(PREFIX)
     }),
     new MiniCssExtractPlugin(),
@@ -147,13 +144,6 @@ let editorConfig = {
     ]
   }
 };
-
-if (existsSync(pluginsDirPath)) {
-  editorConfig.entry.editor = [
-    ...editorConfig.entry.editor,
-    join(dirname(__dirname), 'dist/plugin-registrar.js'),
-  ];
-}
 
 const editorStyles = fastGlob.sync([join(blocksDirPath, '**', 'editor.scss')]);
 if (editorStyles) {
