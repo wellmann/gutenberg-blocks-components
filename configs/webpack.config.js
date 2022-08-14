@@ -181,4 +181,10 @@ if (frontendScripts) {
   frontendConfig.entry.blocks = frontendConfig.entry.blocks ? [...frontendConfig.entry.blocks, ...frontendScripts] : frontendScripts;
 }
 
+const standaloneAssets = fastGlob.sync([join(blocksDirPath, '**', '*.standalone.(scss|js)')]);
+standaloneAssets.forEach((path) => {
+  let blockDirName = basename(dirname(path));
+  frontendConfig.entry['block-' + blockDirName] = path;
+});
+
 module.exports = [editorConfig, frontendConfig];
