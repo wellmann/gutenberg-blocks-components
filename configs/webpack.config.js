@@ -145,6 +145,7 @@ let editorConfig = {
   }
 };
 
+// Additional CSS for the Gutenberg editor.
 const editorStyles = fastGlob.sync([join(blocksDirPath, '**', 'editor.scss')]);
 if (editorStyles) {
   editorConfig.entry.editor = [
@@ -153,6 +154,7 @@ if (editorStyles) {
   ];
 }
 
+// For block related hooks.
 const editorHooks = fastGlob.sync([join(blocksDirPath, '**', 'hook.js')]);
 if (editorHooks) {
   editorConfig.entry.editor = [
@@ -166,21 +168,25 @@ let frontendConfig = {
   entry: {}
 };
 
+// CSS that will be inlined on every page (for above the fold blocks).
 const criticalFrontendStyles = fastGlob.sync([join(blocksDirPath, '**', 'style.critical.scss')]);
 if (criticalFrontendStyles) {
   frontendConfig.entry.critical = criticalFrontendStyles;
 }
 
+// CSS that will be lazy loaded (for below the fold blocks).
 const frontendStyles = fastGlob.sync([join(blocksDirPath, '**', 'style.scss')]);
 if (frontendStyles) {
   frontendConfig.entry.blocks = frontendStyles;
 }
 
+// Public JavaScript for the block.
 const frontendScripts = fastGlob.sync([join(blocksDirPath, '**', 'script.js')]);
 if (frontendScripts) {
   frontendConfig.entry.blocks = frontendConfig.entry.blocks ? [...frontendConfig.entry.blocks, ...frontendScripts] : frontendScripts;
 }
 
+// Public CSS and Javascript that needs to be manually enququed.
 const standaloneAssets = fastGlob.sync([join(blocksDirPath, '**', '*.standalone.(scss|js)')]);
 standaloneAssets.forEach((path) => {
   let blockDirName = basename(dirname(path));
