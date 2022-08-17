@@ -190,7 +190,11 @@ if (frontendScripts) {
 const standaloneAssets = fastGlob.sync([join(blocksDirPath, '**', '*.standalone.(scss|js)')]);
 standaloneAssets.forEach((path) => {
   let blockDirName = basename(dirname(path));
-  frontendConfig.entry['block-' + blockDirName] = path;
+  if (typeof frontendConfig.entry['block-' + blockDirName] === 'undefined') {
+    frontendConfig.entry['block-' + blockDirName] = [];
+  }
+
+  frontendConfig.entry['block-' + blockDirName].push(path);
 });
 
 module.exports = [editorConfig, frontendConfig];
