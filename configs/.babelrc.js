@@ -5,6 +5,7 @@ module.exports = {
     '@babel/preset-env',
     '@babel/preset-typescript'
   ],
+  targets: 'defaults',
   plugins: [
     [
       '@babel/transform-react-jsx', {
