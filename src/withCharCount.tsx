@@ -18,7 +18,7 @@ const withCharCount = (
       const { attributes } = useContext(EditContext);
       const value = props.value || attributes[props.name];
       const id = props.id || 'charcount-' + uuidv4();
-      const hintId = useId();
+      const hintId = uuidv4();
       const [charCount, setCharCount] = useState(count(value, strategy));
       const limitExceeded = charCount > limit;
 

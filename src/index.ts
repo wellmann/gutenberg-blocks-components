@@ -1,3 +1,4 @@
+export { default as CodeAreaControl } from './components/Control/CodeAreaControl';
 export { default as DateTimePickerControl } from './components/Control/DateTimePickerControl';
 export { default as EntityComboboxControl } from './components/Control/EntityComboboxControl';
 export { default as EntitySelectControl } from './components/Control/EntitySelectControl';
