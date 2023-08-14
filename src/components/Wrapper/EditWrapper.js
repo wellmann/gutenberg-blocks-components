@@ -2,13 +2,23 @@
 const { serverSideRender: ServerSideRender } = wp;
 
 // Local dependencies.
+import { convertToBem } from '../../utils';
 import EditContext from '../EditContext';
 
 const getEdit = ({ blockName, editFunction }) => ((props) => {
+  let className = 'block ';
+  className += convertToBem(props.className);
+  
   if (editFunction) {
+    if (props.attributes.align && ['full', 'wide'].includes(props.attributes.align)) {
+        className += ' align' + props.attributes.align;
+    }
+    
     return (
       <EditContext.Provider value={ props }>
-        { editFunction(props) }
+        <div className={ className }>
+            { editFunction(props) }
+        </div>
       </EditContext.Provider>
     );
   }
