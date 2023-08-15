@@ -5,7 +5,7 @@ const { serverSideRender: ServerSideRender } = wp;
 import { convertToBem } from '../../utils';
 import EditContext from '../EditContext';
 
-const getEdit = ({ blockName, editFunction }) => ((props) => {
+const getEdit = ({ blockNamespace, editFunction }) => ((props) => {
   let className = 'block ';
   className += convertToBem(props.className);
   
@@ -25,7 +25,7 @@ const getEdit = ({ blockName, editFunction }) => ((props) => {
 
   return (
     <ServerSideRender
-      block={ blockName }
+      block={ blockNamespace }
       attributes={ props.attributes }
     />
   );
