@@ -5,20 +5,18 @@ const { registerBlockType } = wp.blocks;
 // Local dependencies.
 import Edit from './components/Wrapper/EditWrapper';
 
-const requireContext = require.context(__BLOCKS_DIR__, true, /block\.js$/);
+const requireContext = require.context(__BLOCKS_DIR__, true, /edit\.js$/);
 requireContext.keys().forEach((key) => {
-  let blockSlug = key.split('/')[1];
-  let blockName = __PREFIX__ + '/' + blockSlug;
-  let { default: blockSettings } = requireContext(key);
-  let editFunction = blockSettings.edit;
-
-  delete blockSettings.edit;
+  const blockSlug = key.split('/')[1];
+  const blockName = __PREFIX__ + '/' + blockSlug;
+  const { default: editFunction } = requireContext(key);
+  const { default: blockSettings } = requireContext(key.replace('edit.js', 'block.json'));
 
   blockSettings.supports = blockSettings.supports || {};
   blockSettings.supports.html = false; // Since save is returning null the blocks HTML can't be edited.
 
   registerBlockType(blockName, {
-    apiVersion: 2,
+    apiVersion: 3,
     category: __DEFAULT_BOCK_CAT__,
     edit: Edit({ blockName, editFunction }),
     save({ attributes }) {
