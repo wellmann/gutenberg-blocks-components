@@ -46,7 +46,8 @@ const sassLoaderOptions = {
     includePaths: [
       blocksDirPath,
       join(WP_CONTENT_DIR, 'themes', THEME_SLUG, THEME_SCSS_INCLUDES_DIR)
-    ]
+    ],
+    importer: require('node-sass-json-importer')()
   },
   additionalData: (SCSS_DEFAULT_IMPORTS ? SCSS_DEFAULT_IMPORTS.map((file) => `@use "${file}" as *;`).join('\n') : ''),
   sourceMap: isDev
@@ -83,7 +84,7 @@ const sharedConfig = {
       },
       {
         test: /\.s?css$/,
-        exclude: [/\.module\.s?css$/],
+        exclude: [/\.(inline|module)\.s?css$/],
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -115,6 +116,25 @@ const sharedConfig = {
           {
             loader: 'sass-loader',
             options: sassLoaderOptions
+          }
+        ]
+      },
+      {
+        test: /\.inline.s?css$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              ...cssLoaderOptions,
+              sourceMap: false
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              ...sassLoaderOptions,
+              sourceMap: false
+            }
           }
         ]
       }
@@ -181,7 +201,7 @@ if (frontendStyles) {
 }
 
 // Public JavaScript for the block.
-const frontendScripts = fastGlob.sync([join(blocksDirPath, '**', 'script.js')]);
+const frontendScripts = fastGlob.sync([join(blocksDirPath, '**', 'view.js')]);
 if (frontendScripts) {
   frontendConfig.entry.blocks = frontendConfig.entry.blocks ? [...frontendConfig.entry.blocks, ...frontendScripts] : frontendScripts;
 }

@@ -64,6 +64,7 @@
     "fast-glob": "^3.2.12",
     "highlight.js": "^11.7.0",
     "mini-css-extract-plugin": "^2.7.2",
+    "node-sass-json-importer": "^4.3.0",
     "react-bem-helper": "^1.4.1",
     "react-simple-code-editor": "^0.13.1",
     "sass": "^1.58.3",
