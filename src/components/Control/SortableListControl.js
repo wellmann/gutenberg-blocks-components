@@ -1,7 +1,9 @@
 // WordPress dependencies.
-const { BaseControl, Card, CardBody } = wp.components;
+const { BaseControl, Button, Card, CardBody } = wp.components;
+const { withInstanceId } = wp.compose;
 const { useContext } = wp.element;
 const { withSelect } = wp.data;
+const { __ } = wp.i18n;
 import { Icon, dragHandle } from '@wordpress/icons';
 
 // External dependencies.
@@ -22,8 +24,9 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const SortableListControl = ({ label, options, value, onChange, size = 'small', children, ...restProps }) => {
-  const items = value.length > 0 ? value : options;
+const SortableListControl = ({ label, options, value, onChange, resetLabel = __('Reset'), size = 'small', children, instanceId, ...restProps }) => {
+  const id = 'sortable-list-control-' + instanceId;
+  const items = value.length && value.length > 0 ? value : options;
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
@@ -43,7 +46,7 @@ const SortableListControl = ({ label, options, value, onChange, size = 'small', 
   }
 
   return (
-    <BaseControl label={ label }>
+    <BaseControl>
       <DndContext
         sensors={ sensors }
         collisionDetection={ closestCenter }
@@ -53,9 +56,11 @@ const SortableListControl = ({ label, options, value, onChange, size = 'small', 
           items={ items.map((item) => item.value) }
           strategy={ verticalListSortingStrategy }
         >
-          { items.map((item) => <SortableItem key={ item.value } { ...{ item, size, children } } />) }
+          <BaseControl.VisualLabel><span id={ id }>{ label }</span></BaseControl.VisualLabel>
+          <ul style={ { margin: 0 } } aria-labelledby={ id }>{ items.map((item) => <SortableItem key={ id + '-' + item.value } { ...{ item, size, children } } />) }</ul>
         </SortableContext>
       </DndContext>
+      { resetLabel && <Button onClick={ () => onChange([]) } style={ { marginTop: '1em' } } isLink isDestructive>{ resetLabel }</Button> }
     </BaseControl>
   );
 };
@@ -75,17 +80,18 @@ const SortableItem = ({ item, size, children }) => {
   }
 
   return (
-    <div
+    <li
       ref={ setNodeRef }
       style={ {
         transform: CSS.Transform.toString(transform),
         transition,
-        cursor: 'grab'
+        cursor: 'grab',
+        margin: 0
       } }
       { ...attributes }
       { ...listeners }
     >
-      { children ||
+      { typeof children === 'function' ? children(item) :
         <Card>
           <CardBody style={ cardBodyStyle }>
             <Icon
@@ -97,8 +103,8 @@ const SortableItem = ({ item, size, children }) => {
           </CardBody>
         </Card>
       }
-    </div>
+    </li>
   );
 }
 
-export default SortableListControl;
+export default withInstanceId(SortableListControl);
