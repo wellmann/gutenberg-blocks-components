@@ -72,7 +72,10 @@ const SortableItem = ({ item, size, children }) => {
     setNodeRef,
     transform,
     transition
-  } = useSortable({ id: item.value });
+  } = useSortable({
+    id: item.value,
+    disabled: !!item.disabled
+  });
 
   let cardBodyStyle = {};
   if (size === 'small') {
