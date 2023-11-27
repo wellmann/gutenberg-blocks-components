@@ -28,7 +28,11 @@ const SortableListControl = ({ label, options, value, onChange, resetLabel = __(
   const id = 'sortable-list-control-' + instanceId;
   const items = value.length && value.length > 0 ? value : options;
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     })
