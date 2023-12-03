@@ -12,5 +12,6 @@ export { default as InspectorControls } from './components/Wrapper/InspectorCont
 export { default as MediaPlaceholder } from './components/Wrapper/MediaPlaceholderWrapper';
 export { default as RichText } from './components/Wrapper/RichTextWrapper';
 export { default as EditContext } from './components/EditContext';
+export { default as FocalPointPreview } from './components/FocalPointPreview';
 export { default as Gallery } from './components/Gallery';
 export { default as withCharCount } from './withCharCount';
